@@ -9,7 +9,8 @@
 </p>
 {{ end }}
 <content>
-  {{ .Content }}
+  {{/*  {{ .Content }}  */}}
+  {{ partial "list-to-carousel.html" .Content }}
 </content>
 <p>
   {{ range (.GetTerms "tags") }}

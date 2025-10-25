@@ -49,6 +49,10 @@
   Simply place a custom_body.html into
   your local /layouts/partials-directory -->
   {{- partial "custom_body.html" . -}}
+  {{ $carouselJs := resources.Get "js/auto-carousel.js" | js.Build "auto-carousel.js" | minify | fingerprint }}
+  <script type="text/plain" src="{{ $carouselJs.Permalink }}"></script>
+  {{ $carouselCss := resources.Get "css/auto-carousel.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href="{{ $carouselCss.Permalink }}">
 </body>
 
 </html>
