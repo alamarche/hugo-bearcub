@@ -53,6 +53,8 @@
   <script type="text/plain" src="{{ $carouselJs.Permalink }}"></script>
   {{ $carouselCss := resources.Get "css/auto-carousel.css" | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $carouselCss.Permalink }}">
+  {{ $imgScaling := resources.Get "css/image.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href=" {{$imgScaling.Permalink }} ">
 </body>
 
 </html>
