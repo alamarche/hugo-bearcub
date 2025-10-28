@@ -1,3 +1,39 @@
 {{ define "main" }}
-{{ .Content }}
+<content>
+  <h2>Posts</h2>
+  <ul class="blog-posts">
+    {{ range .Site.Pages }}
+      {{ if and (and (eq .Kind "page") (ne .Title "")) (not .Params.hideFrontPage) }}
+        <li>
+          <span>
+            <i>
+              <time datetime='{{ .Date.Format "2006-01-02" }}' pubdate>
+                {{ .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
+              </time>
+            </i>
+          </span>
+          {{ if .Params.link }}
+            <a href="{{ .Params.link }}" target="_blank">{{ .Title }} ↪</a>
+          {{ else }}
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ end }}
+        </li>
+      {{ else }}
+        {{/*  {{ print .Title "---" .Kind}}  */}}
+      {{ end }}
+    {{ else }}
+    <li>
+      {{ i18n "no-posts" }}
+    </li>
+    {{ end }}
+  </ul>
+  {{ if not .Data.Singular }}
+    <div>
+      <h2>Tags</h2>
+      {{ range .Site.Taxonomies.tags }}
+        <a class="blog-tags" href="{{ .Page.RelPermalink }}">#{{ lower .Page.Title }}</a>
+      {{ end }}
+    </div>
+  {{ end }}
+</content>
 {{ end }}
