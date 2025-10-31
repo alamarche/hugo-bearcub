@@ -54,7 +54,10 @@
   {{ $carouselCss := resources.Get "css/auto-carousel.css" | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href="{{ $carouselCss.Permalink }}">
   {{ $imgScaling := resources.Get "css/image.css" | resources.Minify | resources.Fingerprint }}
-  <link rel="stylesheet" href=" {{$imgScaling.Permalink }} ">
+  <link rel="stylesheet" href=" {{ $imgScaling.Permalink }} ">
+  {{ $socialEmbeds := resources.Get "css/social-embeds.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href=" {{ $socialEmbeds.Permalink }} ">
+
 </body>
 
 </html>
