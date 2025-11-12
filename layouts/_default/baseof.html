@@ -57,6 +57,8 @@
   <link rel="stylesheet" href=" {{ $imgScaling.Permalink }} ">
   {{ $socialEmbeds := resources.Get "css/social-embeds.css" | resources.Minify | resources.Fingerprint }}
   <link rel="stylesheet" href=" {{ $socialEmbeds.Permalink }} ">
+  {{ $customStyles := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
+  <link rel="stylesheet" href=" {{ $customStyles.Permalink }} ">
 
 </body>
 
