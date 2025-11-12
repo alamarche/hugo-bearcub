@@ -9,6 +9,7 @@
 </p>
 {{ end }}
 <content>
+  {{ partial "debugAuto" . }}
   {{/*  {{ .Content }}  */}}
   {{ partial "list-to-carousel.html" .Content }}
 </content>
