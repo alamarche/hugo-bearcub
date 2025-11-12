@@ -1,6 +1,6 @@
-{{ range .Site.Menus.main.ByWeight }}
-  <a href="{{ .URL }}">{{ .Name }}</a>
-{{ end }}
+  {{ range .Site.Menus.main.ByWeight }}
+    <a href="{{ .URL }}" class="header-logo">{{ .Name }}</a>
+  {{ end }}
 
 <!-- Convert this page's translations into a dict -->
 {{ $translations := dict }}
