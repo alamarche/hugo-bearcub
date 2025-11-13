@@ -2,8 +2,9 @@
 <content>
   {{ if .Data.Singular }}
     <h3 class="blog-filter">{{ i18n "filtering-for" }} "{{ .Title }}"</h3>
+  {{ else }}
+    <h2>{{ .Title }}</h2>
   {{ end }}
-  {{ partial "debugAuto" . }}
   <ul class="blog-posts">
     {{ range .Pages }}
     <li>
