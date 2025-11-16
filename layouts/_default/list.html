@@ -1,12 +1,22 @@
 {{ define "main" }}
 <content>
+  {{ partial "debugAuto" . }}
   {{ if .Data.Singular }}
     <h3 class="blog-filter">{{ i18n "filtering-for" }} "{{ .Title }}"</h3>
   {{ else }}
     <h2>{{ .Title }}</h2>
   {{ end }}
+  {{ partial "list-to-carousel.html" .Content }}
   <ul class="blog-posts">
-    {{ range .Pages }}
+    {{ $byWeightToggle := .Param "list-by-weight"}}
+    {{ $pages := 1 }}
+    {{ if $byWeightToggle }}
+      {{ $pages = .Pages.ByWeight }}
+    {{ else }}
+      {{ $pages = .Pages }}
+    {{ end }}
+
+    {{ range $pages }}
     <li>
       <span>
         <i>
