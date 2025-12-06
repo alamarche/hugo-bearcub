@@ -24,7 +24,12 @@
 {{ end }}
 
 {{ $date := .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
-{{ $author := (default $.Site.Params.author.name ($.Param "author") ) }}
+{{ $authorString := partial "make-author-string" $ }}
+{{ $author := (default $.Site.Params.author.name $authorString ) }}
+{{ if (in $author ",") }}
+    {{ $author = index (split $author ",") 0 }}
+{{ end }}
+{{ $byline := (printf "%s | %s" $author $date) }}
 {{ $byline := (printf "%s | %s" $author $date) }}
 
 {{ $fg = $fg.Filter (images.Text $byline (dict

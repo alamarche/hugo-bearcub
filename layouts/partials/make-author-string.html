@@ -1,0 +1,14 @@
+{{ $authorTerms := (default $.Site.Params.author.name ($.GetTerms "authors") ) }}
+{{ $authorNames := slice }}
+{{ $result := false }}
+{{ if and (reflect.IsSlice $authorTerms) (gt (len $authorTerms) 0) }}
+  {{ with $authorTerms }}
+    {{ range . }}
+      {{ $authorNames = $authorNames | append .Title }}
+    {{ end }}
+  {{ end }}
+  {{ else }}
+    {{ $result = $authorTerms }}
+{{ end }}
+{{ $result = delimit $authorNames ", "}}
+{{ return $result }}
