@@ -39,6 +39,20 @@
     {{- partial "header.html" . -}}
   </header>
   <main id="main-content">
+  {{ if not .IsHome }}
+    <nav aria-label="breadcrumb" class="breadcrumb">
+      <ol>
+        {{ range .Ancestors.Reverse }}
+          <li>
+            <a href="{{ .RelPermalink }}">{{- .LinkTitle | truncate 20 -}}</a>
+          </li>
+        {{ end }}
+        <li class="active">
+          <a aria-current="page" href="{{ .RelPermalink }}">{{ .LinkTitle | truncate 20  }}</a>
+        </li>
+      </ol>
+    </nav>
+  {{ end }}
     {{- block "main" . }}{{- end }}
   </main>
   <footer>
