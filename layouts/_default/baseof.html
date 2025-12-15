@@ -42,14 +42,18 @@
   {{ if not .IsHome }}
     <nav aria-label="breadcrumb" class="breadcrumb">
       <ol>
-        {{ range .Ancestors.Reverse }}
+        {{ $ancestors := .Ancestors }}
+        {{ $lenAncestors := len $ancestors }}
+        {{ $realAncestors := first (sub $lenAncestors 1) $ancestors }}
+        {{ $revRealAncestors := $realAncestors.Reverse }}
+        {{ range $revRealAncestors }}
           <li>
             <a href="{{ .RelPermalink }}">{{- .LinkTitle | truncate 20 -}}</a>
           </li>
         {{ end }}
-        <li class="active">
+        {{/*  <li class="active">
           <a aria-current="page" href="{{ .RelPermalink }}">{{ .LinkTitle | truncate 20  }}</a>
-        </li>
+        </li>  */}}
       </ol>
     </nav>
   {{ end }}
