@@ -1,8 +1,10 @@
 <small>
-  <a href='{{ absURL "index.xml" }}'>Site RSS</a> &middot; 
+  {{ $rssSite := resources.GetMatch "**/rss-feed-site.svg" }}
+  {{ $rssSection := resources.GetMatch "**/rss-feed-section.svg" }}
   {{ $rssPageTypes := collections.Slice "section" "list" "term" "taxonomy" }}
+  <a href='{{ absURL "index.xml" }}'><img class="glance-rating" src="{{ $rssSite.Permalink }}" /></a>{{ if collections.In $rssPageTypes .Kind }} (Site){{ end }} &middot; 
   {{ if collections.In $rssPageTypes .Kind }}
-    <a href='{{ add (absURL .Permalink) "index.xml" }}'>Section RSS</a> &middot; 
+    <a href='{{ add (absURL .Permalink) "index.xml" }}'><img class="glance-rating" src="{{ $rssSection.Permalink }}" /></a> (Section) &middot; 
   {{ end }}
   {{ with .Site.Copyright }}{{ replace . "{year}" now.Year | safeHTML }} {{ end }}
   &middot; <a href="{{ ref . `/all-taxonomies.md`}}">Site Index</a>

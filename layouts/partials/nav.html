@@ -1,6 +1,8 @@
+  {{ $rssSite := resources.GetMatch "**/rss-feed-site.svg" }}
   {{ range .Site.Menus.main.ByWeight }}
     <a href="{{ .URL }}" class="header-logo">{{ .Name }}</a>
   {{ end }}
+    <a href='{{ absURL "index.xml" }}'><img class="glance-rating" src="{{ $rssSite.Permalink }}" /></a> 
 
 <!-- Convert this page's translations into a dict -->
 {{ $translations := dict }}
