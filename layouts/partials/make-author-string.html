@@ -1,14 +1,27 @@
-{{ $authorTerms := (default $.Site.Params.author.name ($.GetTerms "authors") ) }}
+{{/*  Get authors from page - if none then use site's `hugo.toml` default  */}}
+{{ $authors := (default $.Site.Params.author.name ($.GetTerms "authors") ) }}
+
+{{/*  Initialize slice to store author names and return var  */}}
 {{ $authorNames := slice }}
 {{ $result := false }}
-{{ if and (reflect.IsSlice $authorTerms) (gt (len $authorTerms) 0) }}
-  {{ with $authorTerms }}
+
+{{ if and (reflect.IsSlice $authors) (gt (len $authors) 0) }}
+  {{/*  Reflects the case of multiple author strings provided in a slice */}}
+  {{ with $authors }}
     {{ range . }}
+      {{/*  `.Title` appended because `authors` is a taxonomy, where each author is a term  */}}
       {{ $authorNames = $authorNames | append .Title }}
     {{ end }}
+    {{ if eq (len $authorNames) 2 }}
+      {{ $result = delimit $authorNames " and "}}
+    {{ else }}
+      {{ $result = delimit $authorNames ", " ", and "}}
+    {{ end }}
   {{ end }}
-  {{ else }}
-    {{ $result = $authorTerms }}
+{{ else }}
+  {{/*  Otherwise, assume a string is supplied with a single author  */}}
+  {{ $result = $authors }}
 {{ end }}
-{{ $result = delimit $authorNames ", "}}
+
+{{/*  hugo partials only allow a single return statement at the end of the template  */}}
 {{ return $result }}
